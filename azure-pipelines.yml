@@ -1,0 +1,55 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+
+  - script: npx --yes markdownlint-cli2 "**/*.md" "#node_modules"
+    displayName: Markdown lint
+    continueOnError: true
+
+  - script: |
+      set -e
+      python3 - <<'EOF'
+      import json, pathlib, re, sys
+
+      fail = False
+
+      # Validate all JSON files
+      for p in pathlib.Path('.').rglob('*.json'):
+          if '.git' in p.parts or 'node_modules' in p.parts: continue
+          try:
+              json.loads(p.read_text(encoding='utf-8'))
+          except Exception as e:
+              print(f'INVALID JSON: {p}: {e}'); fail = True
+
+      # Check relative markdown links resolve
+      link = re.compile(r'\]\(([^)#\s]+)(?:#[^)]*)?\)')
+      for p in pathlib.Path('.').rglob('*.md'):
+          if '.git' in p.parts or 'node_modules' in p.parts: continue
+          for m in link.finditer(p.read_text(encoding='utf-8')):
+              t = m.group(1)
+              if t.startswith(('http://', 'https://', 'mailto:')): continue
+              if not (p.parent / t).exists():
+                  print(f'BROKEN LINK: {p} -> {t}'); fail = True
+
+      # Plugin sanity: version in plugin.json matches marketplace.json
+      plugin = json.loads(pathlib.Path('plugins/ai-sdlc/.claude-plugin/plugin.json').read_text())
+      market = json.loads(pathlib.Path('.claude-plugin/marketplace.json').read_text())
+      mv = next(pl['version'] for pl in market['plugins'] if pl['name'] == 'ai-sdlc')
+      if plugin['version'] != mv:
+          print(f"VERSION MISMATCH: plugin.json={plugin['version']} marketplace.json={mv}"); fail = True
+
+      sys.exit(1 if fail else 0)
+      EOF
+    displayName: JSON validity, relative links, version consistency

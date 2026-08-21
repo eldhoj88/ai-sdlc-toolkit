@@ -1,0 +1,8 @@
+{
+  "name": "ai-sdlc",
+  "version": "0.1.1",
+  "description": "Valorem Azure SI's AI SDLC engineering toolkit: engagement scaffolding, context bootstrap, spec-first delivery, adversarial review, and triage.",
+  "author": {
+    "name": "Valorem ASI Project Delivery"
+  }
+}

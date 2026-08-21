@@ -1,0 +1,27 @@
+# Project: {{PROJECT_NAME}}
+
+Client: {{CLIENT_NAME}}
+
+## Read First
+
+- `context/ARCHITECTURE.md` — systems, boundaries, data flow
+- `context/CONVENTIONS.md` — how this codebase does things; follow it over general best practice
+- `context/DOMAIN.md` — ubiquitous language and business rules
+- `context/DECISIONS/` — ADRs; check before proposing a change that contradicts one
+- `guardrails/POLICY.md` — what AI may and may not touch on this engagement (binding)
+
+## Working Rules
+
+- Spec before implementation on non-trivial work: propose the approach and wait for confirmation before writing code
+- Follow `context/CONVENTIONS.md` exactly; when the codebase and the doc disagree, flag the drift instead of picking silently
+- Never read or write files matching `guardrails/POLICY.md` restrictions
+- Tests accompany implementation — not after the fact
+- If your output seems off-context, say so: the `context/` files may need updating (they are human-owned)
+
+## What This Project Does
+
+[1–3 sentences — fill in during /ai-sdlc:bootstrap-context correction]
+
+## Build & Run
+
+[How to build, run, and test locally — fill in]

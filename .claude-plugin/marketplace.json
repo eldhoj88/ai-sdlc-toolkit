@@ -1,0 +1,14 @@
+{
+  "name": "valorem-ai-sdlc",
+  "owner": {
+    "name": "Valorem ASI Project Delivery"
+  },
+  "plugins": [
+    {
+      "name": "ai-sdlc",
+      "source": "./plugins/ai-sdlc",
+      "description": "Valorem's AI SDLC engineering toolkit: engagement scaffolding, context bootstrap, spec-first delivery, adversarial review, and triage.",
+      "version": "0.1.1"
+    }
+  ]
+}

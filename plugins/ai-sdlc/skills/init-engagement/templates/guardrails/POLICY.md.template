@@ -1,0 +1,23 @@
+# AI Policy — {{PROJECT_NAME}}
+
+> Binding for all AI tooling on this engagement. Instantiates the org AI usage policy for this client — deviations require Team Lead sign-off, recorded here.
+
+- **Client:** {{CLIENT_NAME}}
+- **AI posture (agreed with client):** {{AI_POSTURE}}
+- **Constraints:** {{POSTURE_CONSTRAINTS}}
+- **Recorded:** {{DATE}}
+
+## Data Rules
+
+- Client PII, PHI, payment data, and credentials never enter a prompt, `CLAUDE.md`, or any AI-generated artifact — abstract or use synthetic values
+- Suspected exposure is reported to the Team Lead **immediately**
+- Local/dev data is synthetic only
+
+## Off-Limits for AI on This Engagement
+
+[List modules, paths, or contexts AI must not touch or suggest changes to — e.g., "legacy payment module", "anything under /compliance". "None" if none.]
+
+## Autonomy
+
+- Agent permission prompts stay **on** in this repository
+- Autonomous multi-file agent work runs on an isolated branch and lands as a normally-reviewed PR
